@@ -1,0 +1,22 @@
+{
+  "name": "@funnode/mailgun",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FunNode/npm-mailgun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FunNode/npm-mailgun/issues"
+  },
+  "homepage": "https://github.com/FunNode/npm-mailgun#readme",
+  "dependencies": {
+    "mailgun-js": "^0.22.0"
+  }
+}
