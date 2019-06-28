@@ -5,8 +5,8 @@ module.exports = Mailer;
 
 if (!global.R5) {
   global.R5 = {
-    out: new (require('./Output.js'))('mailer')
-  };
+    out: console
+  }
 }
 
 let mailer = require('mailgun-js');
@@ -52,7 +52,7 @@ Mailer.prototype = {
 
     if (config.live) {
       this.client.messages().send(message, function (error, body) {
-        if (error) { R5.out.err(error); }
+        if (error) { R5.out.error(error); }
         else { R5.out.log(body); }
       });
     }
