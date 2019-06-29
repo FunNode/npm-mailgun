@@ -11,8 +11,8 @@ if (!global.R5) {
 
 let mailer = require('mailgun-js');
 let config = {
-  domain: process.env.MAILGUN_DOMAIN,
-  key: process.env.MAILGUN_API_KEY,
+  domain:  'funnode.com',
+  key: '131133',
   live: process.env.NODE_ENV === 'production'
 };
 

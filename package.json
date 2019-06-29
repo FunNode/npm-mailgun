@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/mocha test.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/FunNode/npm-mailgun#readme",
   "dependencies": {
-    "mailgun-js": "^0.22.0"
+    "chai": "^4.2.0",
+    "dotenv": "^8.0.0",
+    "mailgun-js": "^0.22.0",
+    "mocha": "^6.1.4"
   }
 }
