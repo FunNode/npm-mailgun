@@ -15,12 +15,10 @@ let mailer = require('mailgun-js');
 // Constructors
 
 function Mailer (domain, key, live = false) {
-  this.domain = domain;
-  this.key = key;
   this.live = live;
   this.client = mailer({
-    domain: this.domain,
-    apiKey: this.key,
+    domain: domain,
+    apiKey: key,
   });
 
   this.queued = [];
