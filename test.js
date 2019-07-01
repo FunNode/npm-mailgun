@@ -12,11 +12,9 @@ const config = {
   live: process.env.NODE_ENV === 'production'
 };
 
-
-
 describe('Mailer', function () {
-  var mailer = new (require('./index.js'))(config);
-  var msg = { text: `test message`};
+  var mailer = new (require('./index.js'))(config.domain, config.key, config.live);
+  var msg = { text: `test message` };
   var returned_message = mailer.queue(msg);
   mailer.time_interval = 1000;
 

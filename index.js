@@ -14,11 +14,13 @@ let mailer = require('mailgun-js');
 
 // Constructors
 
-function Mailer (config) {
-  this.config = config;
+function Mailer (domain, key, live = false) {
+  this.domain = domain;
+  this.key = key;
+  this.live = live;
   this.client = mailer({
-    domain: this.config.domain,
-    apiKey: this.config.key,
+    domain: this.domain,
+    apiKey: this.key,
   });
 
   this.queued = [];
@@ -47,7 +49,7 @@ Mailer.prototype = {
 
     message.html = message_html(message.text);
 
-    if (this.config.live) {
+    if (this.live) {
       this.client.messages().send(message, function (error, body) {
         if (error) { R5.out.error(error); }
         else { R5.out.log(body); }
