@@ -11,14 +11,13 @@ if (!global.R5) {
 
 let mailer = require('mailgun-js');
 
-
 // Constructors
 
 function Mailer (domain, key, live = false) {
   this.live = live;
   this.client = mailer({
     domain: domain,
-    apiKey: key,
+    apiKey: key
   });
 
   this.queued = [];

@@ -7,7 +7,7 @@ var chai = require('chai');
 var assert = chai.assert;
 
 const config = {
-  domain:  'funnode.com',
+  domain: 'funnode.com',
   key: '131133',
   live: process.env.NODE_ENV === 'production'
 };
