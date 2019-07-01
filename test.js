@@ -16,7 +16,7 @@ const config = {
 
 describe('Mailer', function () {
   var mailer = new (require('./index.js'))(config);
-  var msg = { text: `test message` };
+  var msg = { text: `test message`};
   var returned_message = mailer.queue(msg);
   mailer.time_interval = 1000;
 

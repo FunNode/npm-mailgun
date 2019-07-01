@@ -10,18 +10,15 @@ if (!global.R5) {
 }
 
 let mailer = require('mailgun-js');
-let config = {
-  domain:  'funnode.com',
-  key: '131133',
-  live: process.env.NODE_ENV === 'production'
-};
+
 
 // Constructors
 
-function Mailer () {
+function Mailer (config) {
+  this.config = config;
   this.client = mailer({
-    domain: config.domain,
-    apiKey: config.key
+    domain: this.config.domain,
+    apiKey: this.config.key,
   });
 
   this.queued = [];
@@ -50,7 +47,7 @@ Mailer.prototype = {
 
     message.html = message_html(message.text);
 
-    if (config.live) {
+    if (this.config.live) {
       this.client.messages().send(message, function (error, body) {
         if (error) { R5.out.error(error); }
         else { R5.out.log(body); }
