@@ -1,0 +1,25 @@
+{
+  "name": "@funnode/mailgun",
+  "version": "1.1.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FunNode/npm-mailgun.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FunNode/npm-mailgun/issues"
+  },
+  "homepage": "https://github.com/FunNode/npm-mailgun#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "dotenv": "^8.0.0",
+    "mailgun-js": "^0.22.0",
+    "mocha": "^6.1.4"
+  }
+}
