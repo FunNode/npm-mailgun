@@ -74,7 +74,6 @@ function send_queued (mailer) {
 
     if (same_owner){
       last_message.text += `<li>${message.text}</li>`;
-      continue;
     }
     
     if (last_message) {
