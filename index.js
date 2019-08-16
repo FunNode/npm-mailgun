@@ -65,7 +65,7 @@ Mailer.prototype = {
 function send_queued (mailer) {
   let last_message = {};
 
-  while (mailer.queued.length > 0) {
+  // while (mailer.queued.length > 0) {
     let message = mailer.queued.splice(0, 1)[0];
 
     let same_owner =  message.subject === last_message.subject &&
@@ -74,6 +74,7 @@ function send_queued (mailer) {
 
     if (same_owner){
       last_message.text += `<li>${message.text}</li>`;
+      continue;
     }
     
     if (last_message) {
@@ -84,7 +85,7 @@ function send_queued (mailer) {
   }
 
   if (last_message) { mailer.send(last_message); }
-}
+// }
 
 function prepared_message (message) {
   if (!message.text) { return false; }
