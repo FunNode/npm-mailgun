@@ -67,13 +67,13 @@ function send_queued (mailer) {
 
   while (mailer.queued.length > 0) {
     let message = mailer.queued.splice(0, 1)[0];
-    last_message = send_queued_message(last_message, message);
+    last_message = send_queued_message(mailer, last_message, message);
   }
 
   if (last_message) { mailer.send(last_message); }
 }
 
-function send_queued_message(last_message, message) {
+function send_queued_message(mailer, last_message, message) {
   let same_owner = (message.subject === last_message.subject && message.from === last_message.from && message.to === last_message.to);
   if (same_owner) {
     last_message.text += `<li>${message.text}</li>`;
