@@ -44,7 +44,7 @@ Mailer.prototype = {
     if (!message.prepared) { message = prepared_message(message); }
     if (!message) { return false; }
 
-    message.html = message_html(message.text);
+    message.html = message_html(message.title, message.text);
 
     if (this.live) {
       this.client.messages().send(message, function (error, body) {
@@ -90,8 +90,9 @@ function prepared_message (message) {
   let today = new Date();
   today = `${today.getMonth() + 1}-${today.getDate()}`;
 
-  message.subject = `(${today}) ${(message.subject || 'System message')}`;
-  message.subject += ` - FunNode Mailer (${require('os').hostname()})`;
+  message.title = message.subject || 'System message';
+  message.subject = `(${today}) ${message.title}`;
+  message.subject += ' - FunNode Mailer';
 
   message.from = message.from || 'no-reply@funnode.com';
   message.to = message.to || 'admin@funnode.com';
@@ -100,20 +101,26 @@ function prepared_message (message) {
   return message;
 }
 
-function message_html (text) {
+function message_html (title, text) {
   return `
     <!DOCTYPE HTML>
-    <html lang="en-US">
-      <head><title>FunNode</title></head>
-      <body style="background-color:#F5F5F5;font:1.1em Century Gothic,sans-serif;height:100%;line-height:1.4em;padding:14px;min-width:500px;">
-        <div style="background-color:#FFF;border:1px solid #DDD;border-radius:9px;margin:14px auto;padding:14px;">
-          <a href="https://www.funnode.com/" target="_blank" title="FunNode Homepage" style="color: #B73737;"><img src="https://www.funnode.com/assets/imgs/logo.jpg" alt="funnode logo" style="margin-bottom:9px;" /></a>
+    <html lang='en-US'>
+      <head>
+        <title>FunNode</title>
+      </head>
+      <body style='background-color:#F5F5F5;font:1.1em Century Gothic,sans-serif;height:100%;line-height:1.4em;padding:14px;min-width:500px;'>
+        <div style='background-color:#FFF;border:1px solid #DDD;border-radius:9px;margin:14px auto;padding:14px;'>
+          <a href='https://www.funnode.com/' target='_blank' title='FunNode Homepage' style='color: #0074D9;'>
+            <img src='https://www.funnode.com/assets/imgs/logo.jpg' alt='funnode logo' style='margin-bottom:9px;' />
+          </a>
+          <p><b>${title}</b>:</p>
           <ul>
             <li>${text}</li>
           </ul>
           <hr />
-          <p><a href="https://www.funnode.com/" target="_blank" title="FunNode Homepage" style="color: #B73737;">FunNode.com</a> is a <strong itemprop="applicationCategory">modern gaming website</strong> that hosts some of the most popular board games and card games in the world. The visually-appealing and browser-friendly interface (<strong>no flash</strong> and <strong>no java</strong>) gives players the freedom to play on various devices, including smartphones and tablets. Moreover, FunNode does not require you to register, and is completely <strong>Free-to-Play</strong>!</p>
-          <p>For a complete list of recent changes on FunNode, check out the <a href="https://www.funnode.com/news#changelog" title="Check out the changes at FunNode" style="color: #B73737;">Changelog</a>. We are also welcoming feedback for improvements and requests for new features and/or games to add to FunNode. Please feel free to submit them in our <a href="https://www.funnode.com/forums" title="FunNode Forums" style="color: #B73737;">Forums</a> or <a href="https://www.funnode.com/requests" title="FunNode Requests" style="color: #B73737;">Requests page</a>.</p>
+          <p><a href='https://www.funnode.com/' target='_blank' title='FunNode Homepage' style='color: #0074D9;'>FunNode.com</a> is a <strong itemprop='applicationCategory'>modern gaming website</strong> that hosts some of the most popular board games and card games in the world. The visually-appealing and browser-friendly interface (<strong>no flash</strong> and <strong>no java</strong>) gives players the freedom to play on various devices, including smartphones and tablets. Moreover, FunNode does not require you to register, and is completely <strong>Free-to-Play</strong>!</p>
+          <p>For a complete list of recent changes on FunNode, check out the <a href='https://www.funnode.com/news#changelog' title='Check out the changes at FunNode' style='color: #0074D9;'>Changelog</a>. We are also welcoming feedback for improvements and requests for new features and/or games to add to FunNode. Please feel free to submit them in our <a href='https://www.funnode.com/forums' title='FunNode Forums' style='color: #0074D9;'>Forums</a> or <a href='https://www.funnode.com/requests' title='FunNode Requests' style='color: #0074D9;'>Requests page</a>.</p></div>
+          <p style='font-size: 90%;'>This email was sent to you as determined by your preferences. You may change your preferences on your profile page.</p>
         </div>
       </body>
     </html>
