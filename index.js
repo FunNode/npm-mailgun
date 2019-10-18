@@ -68,11 +68,7 @@ function send_queued (mailer) {
   while (mailer.queued.length > 0) {
     let message = mailer.queued.splice(0, 1)[0];
 
-    if (
-      message.subject === last_message.subject &&
-      message.from === last_message.from &&
-      message.to === last_message.to
-    ) {
+    if (same_header(message, last_message)) {
       last_message.text += `<li>${message.text}</li>`;
     }
     else {
@@ -99,6 +95,17 @@ function prepared_message (message) {
 
   message.prepared = true;
   return message;
+}
+
+function same_header (message_one, message_two) {
+  if (
+    message_one.subject === message_two.subject &&
+    message_one.from === message_two.from &&
+    message_one.to === message_two.to
+  ) {
+    return true;
+  }
+  return false;
 }
 
 function message_html (title, text) {
