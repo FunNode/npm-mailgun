@@ -8,18 +8,21 @@ if (!global.R5) {
   };
 }
 
-let mailgun = require('mailgun-js');
-
+const formData = require('form-data');
+const Mailgun = require('mailgun.js');
+const mailgun = new Mailgun(formData);
 // Constructors
 
-function Mailer (domain, key, live = false) {
+function Mailer (domain, key, public_key, live = false, username = 'api') {
   this.live = live;
   if (live) {
-    this.client = mailgun({
-      domain: domain,
-      apiKey: key
+    this.client = mailgun.client({
+      key: key,
+      public_key: public_key,
+      username: username
     });
   }
+  this.domain = domain;
   this.queued = [];
   this.timeout = false;
   this.time_interval = 15000;
@@ -55,7 +58,7 @@ Mailer.prototype = {
 
     if (this.live) {
       try {
-        const body = await this.client.messages().send(message);
+        const body = await this.client.messages.create(this.domain, message);
         R5.out.log(body);
       }
       catch (err) {
@@ -99,10 +102,10 @@ function prepare_message (message) {
   message.title = message.subject || 'System message';
   message.subject = `(${today}) ${message.title} - FunNode Mailer`;
 
-  message.from = message.from || 'no-reply@funnode.com';
-  message.to = message.to || 'admin@funnode.com';
+  message.from = `Excited User <${message.from || 'no-reply@funnode.com'}>`;
+  message.to = [message.to || 'admin@funnode.com'];
 
-  message.prepared = true;
+  //message.prepared = true;
   return message;
 }
 
