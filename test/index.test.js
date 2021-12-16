@@ -10,11 +10,15 @@ chai.use(require('chai-as-promised'));
 describe('Mailer', () => {
   const domain = 'domain';
   const key = 'key';
+  const username = 'api';
+  const public_key = 'public_key';
   const live = true;
   const time_interval = 0;
   let sandbox;
   let message;
+  let messages;
   let send;
+  let create;
   let mailgunLib;
   let Mailer;
   let mailer;
@@ -24,13 +28,18 @@ describe('Mailer', () => {
   }
   
   function inject () {
+    messages = () => ({ create })
     mailgunLib = sandbox.stub().returns({
-      messages: () => ({ send }),
+      client: () => {
+        return { 
+          messages: messages 
+        }
+      }
     });
     Mailer = proxyquire('../index', {
-      'mailgun-js': mailgunLib,
+      'mailgun.js': mailgunLib,
     });
-    mailer = new Mailer(domain, key, live);
+    mailer = new Mailer(domain, key, public_key, live, username);
     mailer.time_interval = time_interval;
   }
 
@@ -38,6 +47,7 @@ describe('Mailer', () => {
     sandbox = sinon.createSandbox();
     message = { text: 'test message' };
     send = sandbox.stub().resolves();
+    create = sandbox.stub().resolves();
     inject();
   });
   
@@ -52,10 +62,11 @@ describe('Mailer', () => {
       timeout: false,
       time_interval,
     }).forEach(([k, v]) => expect(mailer[k]).to.eql(v));
-    expect(mailer.client.messages()).to.eql({ send });
+    expect(mailer.client.messages()).to.eql({ create });
     expect(mailgunLib).to.have.been.calledWith({
-      domain,
-      apiKey: key,
+      key,
+      public_key,
+      username
     });
   });
 
@@ -137,7 +148,7 @@ describe('Mailer', () => {
   });
 
   it('skips sending in dev', async function () {
-    mailer = new Mailer(domain, key, false);
+    mailer = new Mailer(domain, key, public_key, live, username);
     await mailer.send(message);
     expect(send).to.not.have.been.called;
   });
