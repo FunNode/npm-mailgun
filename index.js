@@ -36,7 +36,7 @@ Mailer.prototype = {
       message = prepare_message(message);
     }
     this.queued.unshift(message);
-    
+
     clearTimeout(this.timeout);
     this.timeout = setTimeout(send_queued, this.time_interval, this);
 
@@ -44,13 +44,13 @@ Mailer.prototype = {
   },
 
   send: async function (message) {
-    if (!message) { 
+    if (!message) {
       return false;
     }
     if (!message.prepared) {
       message = prepare_message(message);
     }
-    
+
     message.html = message_html(message.title, message.text);
 
     if (this.live) {
@@ -63,7 +63,7 @@ Mailer.prototype = {
       }
     }
     else {
-      R5.out.log('Email not sent (on DEV)');
+      R5.out.log(`"${message.title}" Email not sent (on DEV)`);
     }
 
     return message;
@@ -88,7 +88,7 @@ async function send_queued (mailer) {
       last_message = message;
     }
   }
-  
+
   await mailer.send(last_message);
 }
 
