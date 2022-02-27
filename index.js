@@ -52,6 +52,7 @@ Mailer.prototype = {
     }
 
     message.html = message_html(message.title, message.text, message.to);
+    message.to = message.to.email;
 
     if (this.live) {
       try {
@@ -63,7 +64,7 @@ Mailer.prototype = {
       }
     }
     else {
-      R5.out.log(`"${message.title}" Email not sent (on DEV)`);
+      R5.out.log(`"${message.title}" email to "${message.to}" not sent (on DEV)`);
     }
 
     return message;
