@@ -137,20 +137,10 @@ function message_html (title, text, to) {
             <td align='center' style='padding:14px 0;'>
               <table width='600' cellpadding='0' cellspacing='0' border='0' style='background-color:#FFF;border-radius:9px;border:1px solid #DDD;box-shadow:0 0 4px #CCC;max-width:600px;margin:0 auto;'>
                 <tr>
-                  <td style='padding:14px 14px 0 14px;'>
-                    <table width='100%' cellpadding='0' cellspacing='0' border='0'>
-                      <tr>
-                        <td align='right' style='padding-bottom:9px;'>
-                          <a href='https://www.funnode.com/' rel='noopener' target='_blank' title='FunNode Homepage' style='color: #0074D9; text-decoration:none;'>
-                            <img src='https://assets.funnode.com/imgs/logo.jpg' alt='funnode logo' style='border-radius:9px;border:1px solid #CCC;max-height:50px;max-width:50px;display:block;' />
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </td>
-                </tr>
-                <tr>
-                  <td style='padding:0 14px 14px 14px;'>
+                  <td style='padding:14px 14px 14px 14px;'>
+                    <a href='https://www.funnode.com/' rel='noopener' target='_blank' title='FunNode Homepage' style='color: #0074D9; text-decoration:none;float:right;margin:0 0 9px 14px;'>
+                      <img src='https://assets.funnode.com/imgs/logo.jpg' alt='funnode logo' style='border-radius:9px;border:1px solid #CCC;max-height:50px;max-width:50px;display:block;' />
+                    </a>
                     ${text}
                   </td>
                 </tr>
