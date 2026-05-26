@@ -51,10 +51,11 @@ Mailer.prototype = {
       message = prepare_message(message);
     }
 
+    const is_admin = !!message.to.is_admin;
     message.html = message_html(message.title, message.text, message.to);
     message.to = message.to.email;
 
-    if (this.live) {
+    if (this.live || is_admin) {
       try {
         const body = await this.client.messages().send(message);
         R5.out.log(body);
@@ -124,44 +125,72 @@ function same_header (message_one, message_two = {}) {
 }
 
 function message_html (title, text, to) {
+  const profile_url = `https://www.funnode.com/players/${encodeURIComponent(to.user)}`;
+  const unsub_url   = `${profile_url}?unsubscribe=${encodeURIComponent(to.unsubscribe)}`;
+
+  const chip = (label) =>
+    `<span style='display:inline-block;font-size:11px;font-weight:700;padding:4px 10px 3px;border-radius:999px;background:#FFFFFF;border:1px solid #E8E0D2;color:#5A534A;margin:2px 3px 2px 0;'>${label}</span>`;
+
+  const soc = (href, label, ml = '') =>
+    `<a href='${href}' rel='noopener' target='_blank' style='display:inline-block;width:30px;height:30px;border-radius:50%;background:#FBF8F2;border:1px solid #E8E0D2;text-align:center;line-height:30px;font-size:12px;font-weight:800;color:#5A534A;text-decoration:none;${ml}'>${label}</a>`;
+
+  const unsub_line = to.unsubscribe
+    ? `<br>Manage preferences on your <a href='${profile_url}' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Profile</a> or <a href='${unsub_url}' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Unsubscribe</a>.`
+    : '';
+
   return `
-    <!DOCTYPE HTML><html lang='en-US'>\r\n
-      <head>
-        <meta charset='utf-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>FunNode</title>
-      </head>
-      <body style='background-color:#F5F5F5;font-family:Century Gothic,"Mali","Atma","Patrick Hand","Ubuntu",Arial,sans-serif;height:100%;line-height:1.4em;padding:0;margin:0;min-width:500px;'>
-        <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background-color:#F5F5F5;padding:14px 0;'>
-          <tr>
-            <td align='center' style='padding:14px 0;'>
-              <table width='600' cellpadding='0' cellspacing='0' border='0' style='background-color:#FFF;border-radius:9px;border:1px solid #DDD;box-shadow:0 0 4px #CCC;max-width:600px;margin:0 auto;'>
-                <tr>
-                  <td style='padding:14px 14px 14px 14px;'>
-                    <a href='https://www.funnode.com/' rel='noopener' target='_blank' title='FunNode Homepage' style='color: #0074D9; text-decoration:none;float:right;margin:0 0 9px 14px;'>
-                      <img src='https://assets.funnode.com/imgs/logo.jpg' alt='funnode logo' style='border-radius:9px;border:1px solid #CCC;max-height:50px;max-width:50px;display:block;' />
-                    </a>
-                    ${text}
-                  </td>
-                </tr>
-                <tr>
-                  <td style='padding:14px;border-top:1px solid #DDD;background-color:#F5F5F5;'>
-                    <hr style='margin-top: 18px; margin-bottom: 9px; border: none; border-top: 1px solid #DDD;' />
-                    <p style='font-size: 72%; color:#555; margin:0 0 9px 0; line-height:1.4;'><a href='https://www.funnode.com/' rel='noopener' target='_blank' title='FunNode Homepage' style='color: #0074D9;text-decoration:none;'>FunNode.com</a> is a <strong>modern gaming website</strong> that hosts some of the most popular board games and card games in the world. The visually-appealing and browser-friendly interface (<strong>no flash</strong> and <strong>no java</strong>) gives players the freedom to play on various devices, including smartphones and tablets. Moreover, FunNode does not require you to register, and is completely <strong>Free-to-Play</strong>!</p>
-                    <p style='font-size: 72%; color:#555; margin:0; line-height:1.4;'>For a complete list of recent changes on FunNode, check out the <a href='https://www.funnode.com/news#changelog' rel='noopener' target='_blank' title='Check out the changes at FunNode' style='color: #0074D9;text-decoration:none;'>Changelog</a>. We are also welcoming feedback for improvements and requests for new features and/or games to add to FunNode. Please feel free to submit them in our <a href='https://www.funnode.com/forums' rel='noopener' target='_blank' title='FunNode Forums' style='color: #0074D9;text-decoration:none;'>Forums</a> or <a href='https://www.funnode.com/requests' rel='noopener' target='_blank' title='FunNode Requests' style='color: #0074D9;text-decoration:none;'>Requests page</a>.</p>
-                  </td>
-                </tr>
-                ${(to.unsubscribe) ?
-                  `<tr>
-                    <td style='padding:9px 14px;background-color:#F5F5F5;border-top:1px solid #DDD;'>
-                      <p style='font-size: 81%; color:#555; margin:0; text-align:center;'>This email was sent to you as determined by your preferences. You may change your preferences on your <a href='https://www.funnode.com/players/${to.user}' rel='noopener' target='_blank' title='View Profile Page' style='color: #0074D9;text-decoration:none;'>profile page</a>. You may also <a href='https://www.funnode.com/players/${to.user}?unsubscribe=${to.unsubscribe}' rel='noopener' target='_blank' title='Unsubscribe' style='color: #0074D9;text-decoration:none;'>unsubscribe</a> from all emails.</p>
-                    </td>
-                  </tr>` : ''}
-              </table>
-            </td>
-          </tr>
-        </table>
-      </body>
+    <!DOCTYPE HTML><html lang='en-US'>
+    <head>
+      <meta charset='utf-8'>
+      <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+      <title>FunNode</title>
+      <link rel='preconnect' href='https://fonts.googleapis.com'>
+      <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin>
+      <link href='https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=JetBrains+Mono:wght@500;600&display=swap' rel='stylesheet'>
+    </head>
+    <body style='background:#EFE9DC;font-family:Nunito,"Century Gothic",Arial,sans-serif;margin:0;padding:0;'>
+      <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background:#EFE9DC;padding:28px 0 48px;'>
+        <tr><td align='center'>
+          <table width='640' cellpadding='0' cellspacing='0' border='0' style='background:#FFFFFF;border-radius:18px;border:1px solid #E8E0D2;box-shadow:0 14px 40px rgba(42,38,34,0.10);max-width:640px;margin:0 auto;'>
+
+            <!-- Content -->
+            <tr><td style='padding:20px 28px 16px;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
+              ${text}
+            </td></tr>
+
+            <!-- About -->
+            <tr><td style='background:#FBF8F2;padding:22px 28px;border-top:1px solid #E8E0D2;'>
+              <p style='font-size:14px;font-weight:800;color:#2A2622;margin:0 0 10px;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
+                <span style='display:inline-block;width:28px;height:3px;background:#F0B35E;border-radius:2px;vertical-align:middle;margin-right:10px;'></span>
+                Play Games for Free!
+              </p>
+              <p style='font-size:13.5px;line-height:1.6;color:#5A534A;margin:0 0 12px;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
+                <strong>FunNode</strong> is a modern gaming website that hosts some of the most popular board games, card games, and dice games in the world. The lightweight, browser&#8209;based interface works seamlessly across devices, including smartphones and tablets. No downloads or plugins required. Moreover, FunNode does not require you to register, and is completely <strong>Free&#8209;to&#8209;Play!</strong>
+              </p>
+              ${chip('Browser&#8209;based')}
+              ${chip('No downloads')}
+              ${chip('No sign&#8209;up')}
+              <span style='display:inline-block;font-size:11px;font-weight:700;padding:4px 10px 3px;border-radius:999px;background:#E5F1FC;border:1px solid #B3D4F8;color:#0074D9;margin:2px 3px 2px 0;'>Free&#8209;to&#8209;Play</span>
+            </td></tr>
+
+            <!-- Footer -->
+            <tr><td style='padding:18px 28px 24px;background:#FFFFFF;border-top:1px solid #E8E0D2;'>
+              <table width='100%' cellpadding='0' cellspacing='0' border='0'><tr>
+                <td style='font-size:12px;color:#928A7F;line-height:1.55;vertical-align:middle;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
+                  For the full list of changes, visit the <a href='https://www.funnode.com/news#changelog' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Changelog</a>.<br>
+                  Got an idea? Drop it on the <a href='https://www.funnode.com/forums' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Forums</a> or <a href='https://www.funnode.com/requests' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Requests</a> page.${unsub_line}
+                </td>
+                <td width='72' style='text-align:right;vertical-align:middle;white-space:nowrap;padding-left:12px;'>
+                  ${soc('https://x.com/FunNode', '&#120143;')}
+                  ${soc('https://www.facebook.com/pages/FunNode/502346023112099', 'f', 'margin-left:6px;')}
+                </td>
+              </tr></table>
+            </td></tr>
+
+          </table>
+        </td></tr>
+      </table>
+    </body>
     </html>
   `;
 }
