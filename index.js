@@ -198,9 +198,11 @@ function message_html (title, text, to) {
                   For the full list of changes, visit the <a href='https://www.funnode.com/news#changelog' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Changelog</a>.<br>
                   Got an idea? Drop it on the <a href='https://www.funnode.com/forums' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Forums</a> or <a href='https://www.funnode.com/requests' rel='noopener' target='_blank' style='color:#5A534A;text-decoration:underline;'>Requests</a> page.${unsub_line}
                 </td>
-                <td width='72' style='text-align:right;vertical-align:middle;white-space:nowrap;padding-left:12px;'>
-                  ${soc('https://x.com/FunNode', '&#120143;')}
-                  ${soc('https://www.facebook.com/pages/FunNode/502346023112099', 'f', 'margin-left:6px;')}
+                <td style='text-align:right;vertical-align:middle;padding-left:12px;'>
+                  <table cellpadding='0' cellspacing='0' border='0' align='right'><tr>
+                    <td>${soc('https://x.com/FunNode', '&#120143;')}</td>
+                    <td style='padding-left:6px;'>${soc('https://www.facebook.com/pages/FunNode/502346023112099', 'f')}</td>
+                  </tr></table>
                 </td>
               </tr></table>
             </td></tr>
