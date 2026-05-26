@@ -153,6 +153,25 @@ function message_html (title, text, to) {
         <tr><td align='center'>
           <table width='640' cellpadding='0' cellspacing='0' border='0' style='background:#FFFFFF;border-radius:18px;border:1px solid #E8E0D2;box-shadow:0 14px 40px rgba(42,38,34,0.10);max-width:640px;margin:0 auto;'>
 
+            <!-- Hero -->
+            <tr><td style='padding:0;'>
+              <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background:linear-gradient(135deg,rgba(240,179,94,0.25) 0%,rgba(143,205,200,0.20) 50%,rgba(234,166,168,0.15) 100%),#FBF8F2;border-bottom:1px solid #E8E0D2;border-radius:18px 18px 0 0;overflow:hidden;'>
+                <tr>
+                  <td style='padding:22px 28px 24px;vertical-align:top;'>
+                    <p style='font-size:18px;font-weight:800;color:#2A2622;margin:6px 0 0;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>FunNode</p>
+                    <p style='font-size:14px;color:#5A534A;margin-top:8px;margin-bottom:0;line-height:1.5;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>Play games for free &#8212; no sign-up required.</p>
+                  </td>
+                  <td width='94' style='padding:22px 22px 24px 0;vertical-align:top;'>
+                    <table cellpadding='0' cellspacing='0' border='0' style='border-radius:16px;background:#FFFFFF;border:1px solid #E8E0D2;box-shadow:0 2px 0 rgba(42,38,34,0.04);'>
+                      <tr><td style='padding:6px;line-height:0;font-size:0;'>
+                        <img src='https://assets.funnode.com/imgs/logo.jpg' alt='FunNode' width='60' height='60' style='display:block;border-radius:10px;'>
+                      </td></tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td></tr>
+
             <!-- Content -->
             <tr><td style='padding:20px 28px 16px;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
               ${text}
