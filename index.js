@@ -158,8 +158,7 @@ function message_html (title, text, to) {
               <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background:linear-gradient(135deg,rgba(240,179,94,0.25) 0%,rgba(143,205,200,0.20) 50%,rgba(234,166,168,0.15) 100%),#FBF8F2;border-bottom:1px solid #E8E0D2;border-radius:18px 18px 0 0;overflow:hidden;'>
                 <tr>
                   <td style='padding:22px 28px 24px;vertical-align:top;'>
-                    <p style='font-size:18px;font-weight:800;color:#2A2622;margin:6px 0 0;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>FunNode</p>
-                    <p style='font-size:14px;color:#5A534A;margin-top:8px;margin-bottom:0;line-height:1.5;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>Play games for free &#8212; no sign-up required.</p>
+                    <p style='font-size:18px;line-height:1.45;color:#2A2622;margin:6px 0 0;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>Hi <span style='background:linear-gradient(180deg,transparent 62%,rgba(240,179,94,0.55) 62%);padding:0 2px;font-weight:800;'>${to.user}</span>!</p>
                   </td>
                   <td width='94' style='padding:22px 22px 24px 0;vertical-align:top;'>
                     <table cellpadding='0' cellspacing='0' border='0' style='border-radius:16px;background:#FFFFFF;border:1px solid #E8E0D2;box-shadow:0 2px 0 rgba(42,38,34,0.04);'>
@@ -184,7 +183,7 @@ function message_html (title, text, to) {
                 Play Games for Free!
               </p>
               <p style='font-size:13.5px;line-height:1.6;color:#5A534A;margin:0 0 12px;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
-                <strong>FunNode</strong> is a modern gaming website that hosts some of the most popular board games, card games, and dice games in the world. The lightweight, browser&#8209;based interface works seamlessly across devices, including smartphones and tablets. No downloads or plugins required. Moreover, FunNode does not require you to register, and is completely <strong>Free&#8209;to&#8209;Play!</strong>
+                <strong>FunNode</strong> is a modern gaming website that hosts some of the most popular board games, card games, and dice games in the world. The lightweight, browser&#8209;based interface works seamlessly across devices, including smartphones and tablets. No downloads or plugins required. Moreover, FunNode does not require you to register.
               </p>
               ${chip('Browser&#8209;based')}
               ${chip('No downloads')}
