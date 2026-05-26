@@ -1,6 +1,6 @@
 {
   "name": "@funnode/mailgun",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "A mailgun wrapper used by funnode repositories",
   "main": "index.js",
   "scripts": {
