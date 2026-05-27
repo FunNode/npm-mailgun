@@ -14,7 +14,9 @@ let mailgun = require('mailgun-js');
 
 function Mailer (domain, key, live = false) {
   this.live = live;
-  this.client = mailgun({ domain: domain, apiKey: key });
+  if (live) {
+    this.client = mailgun({ domain: domain, apiKey: key });
+  }
   this.queued = [];
   this.timeout = false;
   this.time_interval = 15000;

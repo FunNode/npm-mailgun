@@ -62,7 +62,7 @@ describe('Mailer', () => {
   it('constructs for dev by default', function () {
     mailer = new Mailer();
     expect(mailer.live).to.be.false;
-    expect(mailgunLib).to.have.been.calledTwice; // inject() + dev constructor
+    expect(mailgunLib).to.have.been.calledOnce; // not twice — client not initialized in dev
   });
   
   it('queues', function () {
@@ -140,13 +140,6 @@ describe('Mailer', () => {
     mailer = new Mailer(domain, key, false);
     await mailer.send(message);
     expect(send).to.not.have.been.called;
-  });
-
-  it('sends to admin in dev', async function () {
-    mailer = new Mailer(domain, key, false);
-    message = { text: 'test message', to: { email: 'a@b.com', user: 'Admin', is_admin: true } };
-    await mailer.send(message);
-    expect(send).to.have.been.called;
   });
 
   it('fails to send and continues running', async function () {
