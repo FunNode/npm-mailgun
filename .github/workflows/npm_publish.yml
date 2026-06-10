@@ -12,10 +12,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
       - run: npm ci
       - run: npm run test
       # CodeClimate integration - disabled (Code Climate API was discontinued as of July 18, 2025)
@@ -32,10 +32,10 @@ jobs:
       packages: write
       contents: read
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
           registry-url: https://npm.pkg.github.com/
           scope: '@RaviPatel'
       - run: npm ci
