@@ -181,7 +181,7 @@ function message_html (title, subtitle, text, to) {
                 Play Games for Free!
               </p>
               <p style='font-size:13.5px;line-height:1.6;color:#5A534A;margin:0 0 12px;font-family:Nunito,"Century Gothic",Arial,sans-serif;'>
-                <strong>FunNode</strong> is a modern gaming website that hosts some of the most popular board games, card games, and dice games in the world. The lightweight, browser&#8209;based interface works seamlessly across devices, including smartphones and tablets. No downloads or plugins required. Moreover, FunNode does not require you to register.
+                <strong>FunNode</strong> is a modern gaming website that hosts some of the most popular board games, card games, dice games, and word games in the world. The lightweight, browser&#8209;based interface works seamlessly across devices, including smartphones and tablets. No downloads or plugins required. Moreover, FunNode does not require you to register.
               </p>
               ${chip('Browser&#8209;based')}
               ${chip('No downloads')}
