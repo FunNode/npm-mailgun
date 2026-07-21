@@ -199,7 +199,7 @@ function message_html (title, subtitle, text, to) {
                 <td style='text-align:right;vertical-align:middle;padding-left:12px;'>
                   <table cellpadding='0' cellspacing='0' border='0' align='right'><tr>
                     <td>${soc('https://x.com/FunNode', '&#120143;')}</td>
-                    <td style='padding-left:6px;'>${soc('https://www.facebook.com/pages/FunNode/502346023112099', 'f')}</td>
+                    <td style='padding-left:6px;'>${soc('https://www.facebook.com/funnode/', 'f')}</td>
                   </tr></table>
                 </td>
               </tr></table>
